@@ -144,42 +144,45 @@ def getPrediction(learnDataset,trainDataset,k):
 
 def main():
     # open file
-    splitRatio = 0.80
-    with open('TrainMini.csv', 'rb') as csvfile:
-        print('1. Learning ...')
-        # Get Data
-        dataset1 = readFile(csvfile)
-        # Split into learn and train
-        learnDataset, trainDataset = splitDataset(dataset1,splitRatio)
-        print('Split {0} rows into learn={1} and train={2} rows').format(len(dataset1), len(learnDataset), len(trainDataset))
-        # Predict output by learnDataset
-        # k = int(math.sqrt(len(learnDataset)))
-        k = 11
-        trainPredict = getPrediction(learnDataset,trainDataset,k)
-        # Evaluate Accuracy
-        accuracy = getAccuracy(trainDataset,trainPredict)
-        print('accuracy: {0}').format(accuracy)
-        csvfile.close()
-
-        # Set y value on Test dataset
-        with open('TestMini.csv', 'rb') as csvfile:
-            print('2. Testing ...')
+    splitRatio = 0.75
+    k = 3
+    for i in range(11):
+        with open('TrainMini.csv', 'rb') as csvfile:
+            print('1. Learning ...')
             # Get Data
-            dataset = readTestFile(csvfile)
-            # Predict
-            testPredict = getPrediction(dataset1,dataset,k)
+            dataset1 = readFile(csvfile)
+            # Split into learn and train
+            learnDataset, trainDataset = splitDataset(dataset1,splitRatio)
+            print('Split {0} rows into learn={1} and train={2} rows').format(len(dataset1), len(learnDataset), len(trainDataset))
+            # Predict output by learnDataset
+            # k = int(math.sqrt(len(learnDataset)))
+            trainPredict = getPrediction(learnDataset,trainDataset,k)
+            # Evaluate Accuracy
+            accuracy = getAccuracy(trainDataset,trainPredict)
+            print('accuracy: {0}').format(accuracy)
             csvfile.close()
-            # Get current date time
-            date = strftime("%Y_%m_%d %H_%M_%S", gmtime());
-            # write testPredict to new csv file
-            testPredict.insert(0,["x1","x2","x3","x4","x5","x6","x7","x8","x9","x10","y"])
-            with open(date+".csv", "wb") as f:
-                writer = csv.writer(f)
-                writer.writerows(testPredict)
-                f.close()
-            # write accuracy record csv file
-            with open("record.csv", "a") as r:
-                r.write("Date : "+date+" | split into learn: "+str(len(learnDataset))+" & train: "+str(len(trainDataset))+" | accuracy : "+str(accuracy)+" | test prediction : "+date+".csv"+" \n")
-                r.close()
+
+            # Set y value on Test dataset
+            with open('TestMini.csv', 'rb') as csvfile:
+                print('2. Testing ...')
+                # Get Data
+                dataset = readTestFile(csvfile)
+                # Predict
+                testPredict = getPrediction(dataset1,dataset,k)
+                csvfile.close()
+                # Get current date time
+                date = strftime("%Y_%m_%d %H_%M_%S", gmtime());
+                # write testPredict to new csv file
+                testPredict.insert(0,["x1","x2","x3","x4","x5","x6","x7","x8","x9","x10","y"])
+                with open(date+" k"+str(k)+".csv", "wb") as f:
+                    writer = csv.writer(f)
+                    writer.writerows(testPredict)
+                    f.close()
+                # write accuracy record csv file
+                with open("record.csv", "a") as r:
+                    r.write("Date : "+date+" | K: "+str(k)+" | split into learn: "+str(len(learnDataset))+" & train: "+str(len(trainDataset))+" | accuracy : "+str(accuracy)+" | test prediction : "+date+" k"+str(k)+".csv"+" \n")
+                    r.close()
+        # increment new k
+        k = k+2
 
 main()
