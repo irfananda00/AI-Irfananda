@@ -1,0 +1,12 @@
+
+Date : 2016_11_15 15_52_13 | K: 3 | split into learn: 67500 & train: 22500 | accuracy : 85.7555555556 | test prediction : 2016_11_15 15_52_13 k3.csv 
+Date : 2016_11_15 19_27_15 | K: 5 | split into learn: 67500 & train: 22500 | accuracy : 86.6133333333 | test prediction : 2016_11_15 19_27_15 k5.csv 
+Date : 2016_11_15 23_05_03 | K: 7 | split into learn: 67500 & train: 22500 | accuracy : 87.72 | test prediction : 2016_11_15 23_05_03 k7.csv 
+Date : 2016_11_16 04_11_42 | K: 9 | split into learn: 67500 & train: 22500 | accuracy : 88.3688888889 | test prediction : 2016_11_16 04_11_42 k9.csv 
+Date : 2016_11_16 07_53_22 | K: 11 | split into learn: 67500 & train: 22500 | accuracy : 88.9866666667 | test prediction : 2016_11_16 07_53_22 k11.csv 
+Date : 2016_11_16 11_37_01 | K: 13 | split into learn: 67500 & train: 22500 | accuracy : 88.9377777778 | test prediction : 2016_11_16 11_37_01 k13.csv 
+Date : 2016_11_16 15_20_31 | K: 15 | split into learn: 67500 & train: 22500 | accuracy : 89.04 | test prediction : 2016_11_16 15_20_31 k15.csv 
+Date : 2016_11_16 19_05_10 | K: 17 | split into learn: 67500 & train: 22500 | accuracy : 89.7511111111 | test prediction : 2016_11_16 19_05_10 k17.csv 
+Date : 2016_11_17 01_05_03 | K: 19 | split into learn: 67500 & train: 22500 | accuracy : 89.8266666667 | test prediction : 2016_11_17 01_05_03 k19.csv 
+Date : 2016_11_17 04_53_53 | K: 21 | split into learn: 67500 & train: 22500 | accuracy : 90.1511111111 | test prediction : 2016_11_17 04_53_53 k21.csv 
+Date : 2016_11_17 08_45_39 | K: 23 | split into learn: 67500 & train: 22500 | accuracy : 89.8355555556 | test prediction : 2016_11_17 08_45_39 k23.csv 

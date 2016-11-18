@@ -58,12 +58,17 @@ def getFitness(population):
     fitPopulation = []
     for i in range(len(population)):
         fitness = 0
-        for j in range(len(population[i])):
+        for j in range(len(population[i])-1):
             if population[i][j] == 7:
                 break
             fromIndex = population[i][j]
             toIndex = population[i][j+1]
-            fitness += 1/((rulesWeight[fromIndex][toIndex]+0.01))
+            if rulesWeight[fromIndex][toIndex] == 0:
+                fitness = 0
+                break
+            fitness += rulesWeight[fromIndex][toIndex]
+        if fitness != 0:
+            fitness = 1/(fitness)
         fitPopulation.append((fitness, population[i]))
     print('fitPopulation: {0}').format(fitPopulation)
     return fitPopulation
@@ -104,42 +109,24 @@ def getCouples(fitPopulation):
 
 def orderCrossOver(couple):
     size = len(couple[0][1])
+    tmp = copy.copy(couple[0][1])
     ind1 = copy.copy(couple[0][1])
     ind2 = copy.copy(couple[1][1])
     print('couple parent')
-    print('ind1: {0}').format(ind1)
-    print('ind2: {0}').format(ind2)
+    print('ind1: {0}').format(couple[0][1])
+    print('ind2: {0}').format(couple[1][1])
 
-    # init individu baru
-    ind1C = []
-    for i in range(0,2):
-        ind1C.append(ind1[i])
-    ind2C = []
-    for i in range(0,2):
-        ind2C.append(ind2[i])
-
-    # cross over
-    # ind1C
-    for i in range(2,size):
-        if ind2[i] in ind1C:
-            continue
-        ind1C.append(ind2[i])
-    # jika panjang kromosom belum 7
-    for i in range(size-len(ind1C)):
-        ind1C.append(ind2[i])
-    # ind2C
-    for i in range(2,size):
-        if ind1[i] in ind2C:
-            continue
-        ind2C.append(ind1[i])
-    # jika panjang kromosom belum 7
-    for i in range(size-len(ind2C)):
-        ind2C.append(ind1[i])
+    indexLock = random.randint(0,size-1)
+    for i in range(size):
+        if i != indexLock and i != indexLock+1:
+            tmp[i] = copy.copy(ind1[i])
+            ind1[i] = copy.copy(ind2[i])
+            ind2[i] = copy.copy(tmp[i])
 
     print('twin child')
-    print('ind1C: {0}').format(ind1C)
-    print('ind2C: {0}').format(ind2C)
-    return [ind1C,ind2C]
+    print('ind1C: {0}').format(ind1)
+    print('ind2C: {0}').format(ind2)
+    return [ind1,ind2]
 
 def getChild(couples):
     childPopulation = []
@@ -160,8 +147,8 @@ def runGA(fitPopulation):
     # elitisme -> mendapatkan populasi baru dengan mengambil nilai fitness tertinggi
     childFitPopulation = getFitness(childPopulation)
     currentPopulation = fitPopulation + childFitPopulation
-    # currentPopulation.sort(key=operator.itemgetter(0),reverse=True)
-    currentPopulation.sort(key=operator.itemgetter(0))
+    currentPopulation.sort(key=operator.itemgetter(0),reverse=True)
+    # currentPopulation.sort(key=operator.itemgetter(0))
     newPopulation = []
     for i in range(len(currentPopulation)/2):
         newPopulation.append(currentPopulation[i])
@@ -175,10 +162,9 @@ def main():
     k = len(data)-1
     # representasi kromosom | pengecekan terhubung tidaknya
     population = initPopulation(n,k)
-    # TODO lakukan GA
     # hitung nilai fitness | jumlahkan total bobotnya
     fitPopulation = getFitness(population)
-    for i in range(500):
+    for i in range(1000):
         fitPopulation = runGA(fitPopulation)
     print('final population: {0}').format(fitPopulation)
     solution = ""

@@ -147,7 +147,7 @@ def main():
     splitRatio = 0.75
     k = 3
     for i in range(11):
-        with open('TrainMini.csv', 'rb') as csvfile:
+        with open('Train.csv', 'rb') as csvfile:
             print('1. Learning ...')
             # Get Data
             dataset1 = readFile(csvfile)
@@ -163,7 +163,7 @@ def main():
             csvfile.close()
 
             # Set y value on Test dataset
-            with open('TestMini.csv', 'rb') as csvfile:
+            with open('Test.csv', 'rb') as csvfile:
                 print('2. Testing ...')
                 # Get Data
                 dataset = readTestFile(csvfile)
