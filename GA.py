@@ -156,7 +156,7 @@ def runGA(fitPopulation):
     return newPopulation
 
 def main():
-    # total population = n
+    # total individu = n
     n = 4
     # panjang kromosom
     k = len(data)-1
@@ -164,7 +164,7 @@ def main():
     population = initPopulation(n,k)
     # hitung nilai fitness | jumlahkan total bobotnya
     fitPopulation = getFitness(population)
-    for i in range(1000):
+    for i in range(10):
         fitPopulation = runGA(fitPopulation)
     print('final population: {0}').format(fitPopulation)
     solution = ""
